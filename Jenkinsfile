@@ -10,22 +10,32 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Setup Python Environment') {
             steps {
-                sh 'pip3 install -r requirements.txt'
-                sh 'python3 -m playwright install'
+                sh '''
+                python3 -m venv venv
+                . venv/bin/activate
+                pip install --upgrade pip
+                pip install -r requirements.txt
+                python -m playwright install
+                '''
             }
         }
 
         stage('Run Smoke Tests') {
             steps {
-                sh 'python3 -m pytest -m smoke -n 4'
+                sh '''
+                . venv/bin/activate
+                python -m pytest -m smoke -n 4
+                '''
             }
         }
 
         stage('Generate Allure Report') {
             steps {
-                sh 'allure generate reports -o allure-report'
+                sh '''
+                allure generate reports -o allure-report
+                '''
             }
         }
 
@@ -34,6 +44,5 @@ pipeline {
                 archiveArtifacts artifacts: 'allure-report/**'
             }
         }
-
     }
 }
