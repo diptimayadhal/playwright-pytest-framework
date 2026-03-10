@@ -12,14 +12,14 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'pip install -r requirements.txt'
-                sh 'playwright install'
+                sh 'pip3 install -r requirements.txt'
+                sh 'python3 -m playwright install'
             }
         }
 
         stage('Run Smoke Tests') {
             steps {
-                sh 'pytest -m smoke -n 4'
+                sh 'python3 -m pytest -m smoke -n 4'
             }
         }
 
@@ -36,5 +36,4 @@ pipeline {
         }
 
     }
-
 }
