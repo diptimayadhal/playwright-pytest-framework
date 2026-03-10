@@ -1,0 +1,7 @@
+{
+  "_comment": "This file manages environment-specific variables and browser settings",
+  "base_url": "https://opensource-demo.orangehrmlive.com/",
+  "browser": "chromium",
+  "headless": false,
+  "api_base_url": "https://opensource-demo.orangehrmlive.com"
+}

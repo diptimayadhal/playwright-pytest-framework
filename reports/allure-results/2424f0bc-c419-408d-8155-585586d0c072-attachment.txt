@@ -1,0 +1,2 @@
+[32mINFO    [0m utils.logger:login_page.py:16 Opening login page
+[32mINFO    [0m utils.logger:login_page.py:16 Opening login page

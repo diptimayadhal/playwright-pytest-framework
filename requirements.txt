@@ -1,0 +1,9 @@
+# dependencies
+
+playwright
+pytest
+pytest-xdist
+pytest-html
+allure-pytest
+requests
+pytest-rerunfailures
