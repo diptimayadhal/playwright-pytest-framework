@@ -26,7 +26,7 @@ pipeline {
             steps {
                 sh '''
                 . venv/bin/activate
-                python -m pytest -m smoke -n 4
+                python -m pytest -m smoke
                 '''
             }
         }

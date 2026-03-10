@@ -5,6 +5,7 @@ from pages.login_page import LoginPage
 from pages.logout_pages import LogoutPage
 from utils.config_reader import load_config
 from datetime import datetime
+import os
 
 config = load_config()
 
@@ -96,10 +97,14 @@ def pytest_runtest_makereport(item):
 
         if page:
 
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            os.makedirs("reports/screenshots", exist_ok=True)
 
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             test_name = item.name
 
             screenshot_path = f"reports/screenshots/{test_name}_{timestamp}.png"
 
-            page.screenshot(path=screenshot_path)
+            try:
+                page.screenshot(path=screenshot_path)
+            except Exception as e:
+                print(f"Screenshot capture failed: {e}")
