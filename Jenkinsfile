@@ -6,7 +6,7 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/diptimayadhal/playwright-pytest-framework.git'
+                git branch: 'main', url: 'https://github.com/diptimayadhal/playwright-pytest-framework.git'
             }
         }
 
