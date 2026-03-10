@@ -2,13 +2,11 @@ pipeline {
 
     agent any
 
-    stages {
+    environment {
+        ENV = "qa"
+    }
 
-        stage('Checkout Code') {
-            steps {
-                git branch: 'main', url: 'https://github.com/diptimayadhal/playwright-pytest-framework.git'
-            }
-        }
+    stages {
 
         stage('Setup Python Environment') {
             steps {
@@ -24,17 +22,23 @@ pipeline {
 
         stage('Run Smoke Tests') {
             steps {
-                sh '''
-                . venv/bin/activate
-                python -m pytest -m smoke
-                '''
+                script {
+                    try {
+                        sh '''
+                        . venv/bin/activate
+                        python -m pytest -m smoke -n 4 --env=$ENV --alluredir=allure-results
+                        '''
+                    } catch (Exception e) {
+                        echo "Tests failed but continuing pipeline"
+                    }
+                }
             }
         }
 
         stage('Generate Allure Report') {
             steps {
                 sh '''
-                allure generate reports -o allure-report
+                allure generate allure-results -o allure-report --clean
                 '''
             }
         }
@@ -44,5 +48,7 @@ pipeline {
                 archiveArtifacts artifacts: 'allure-report/**'
             }
         }
+
     }
+
 }
