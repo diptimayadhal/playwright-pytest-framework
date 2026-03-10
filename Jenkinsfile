@@ -8,6 +8,12 @@ pipeline {
 
     stages {
 
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/diptimayadhal/playwright-pytest-framework.git'
+            }
+        }
+
         stage('Setup Python Environment') {
             steps {
                 sh '''
