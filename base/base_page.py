@@ -14,3 +14,6 @@ class BasePage:
 
     def get_text(self, locator):
         return self.page.inner_text(locator)
+    
+    def wait_for_url(self, url):
+        self.page.wait_for_url(url)
